@@ -1,12 +1,30 @@
+import { useState, useEffect } from "react";
+
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 import { navLinks } from "../data/index";
 import { NavLink } from "react-router-dom";
 
 const NavbarComponents = () => {
+  const [changeColor, setChangColor] = useState(false);
+
+  const changeBackgroundColor = () => {
+    if (window.scrollY > 10) {
+      setChangColor(true);
+    } else {
+      setChangColor(false);
+    }
+  };
+
+  useEffect(() => {
+    changeBackgroundColor();
+
+    window.addEventListener("scroll", changeBackgroundColor);
+  });
+
   return (
     <div>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className={changeColor ? "color-active" : ""}>
         <Container>
           <Navbar.Brand className="logo" href="#home">
             Ryutaaa | Course
